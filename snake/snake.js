@@ -1,48 +1,56 @@
-;
-var board
-var context
-var blockSize = 30
-var rows = 12
-var cols = 12
-;
+var board;
+var context;
+var blockSize = 25;
+var rows = 12;
+var cols = 12;
 
-;
-var snakeX = blockSize * 5
-var snakeY = blockSize * 5
+var velocity = 0;
 
-var snakeBody = []
-;
+var snakeX = blockSize * 5;
+var snakeY = blockSize * 5;
 
-;
-var foodX
-var foodY
-;
+var snakeBody = [];
 
-;
-window.onload = function() {
-    board = document.getElementById("board")
-    board.height = rows * blockSize
-    board.width = cols * blockSize
-    context = board.getContext("2d")
+var foodX = blockSize * 10;
+var foodY = blockSize * 10;
 
-    placeFood()
-    document.addEventListener("keyup", changeDirection)
-    setInterval(update, 100)
+var gameover = false;
+
+
+window.onload = function () {
+    board = document.getElementById("board");
+    board.height = rows * blockSize;
+    board.width = cols * blockSize;
+    context = board.getContext("2d");
+
+    setInterval(update, 100);
 }
 
 function update() {
     if (gameover) {
-        return
+        return;
     }
 
-    context.fillStyle="chartreuse"
-    context.fillRect(0, 0, board.width, board.height)
+    context.fillStyle = "chartreuse";
+    context.fillRect(0, 0, board.width, board.height);
 
-    context.fillStyle="red"
-    context.fillRect(foodX, foodY, blockSize, blockSize)
+    context.fillStyle = "red";
+    context.fillRect(foodX, foodY, blockSize, blockSize);
 
-    if(snakeX == foodX && snakeY == foodY) {
-        snakeBody.push([foodX, foodY])
-        placeFood()
+    if (snakeX == foodX && snakeY == foodY) {
+        snakeBody.push([foodX, foodY]);
+        placeFood();
     }
+
+    for (let i = snakeBody.length - 1; i > 0; i--) {
+        snakeBody[i] = snakeBody[i - 1];
+    }
+    if (snakeBody.length) {
+        snakeBody[0] = [snakeX, snakeY];
+    }
+
+    context.fillStyle = "green";
+    snakeX += velocity * blockSize;
+    snakeY += velocity * blockSize;
+    context.fillRect(snakeX, snakeY, blockSize, blockSize);
 }
