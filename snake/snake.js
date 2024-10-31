@@ -13,3 +13,11 @@ var snakeY = blockSize * 5
 var snakeBody = []
 ;
 
+;
+window.onload = function() {
+    board = document.getElementById("board")
+    board.height = rows * blockSize
+    board.width = cols * blockSize
+    context = board.getContext("2d")
+    
+}
