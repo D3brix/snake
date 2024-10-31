@@ -53,4 +53,16 @@ function update() {
     snakeX += velocity * blockSize;
     snakeY += velocity * blockSize;
     context.fillRect(snakeX, snakeY, blockSize, blockSize);
+    for (let i = 0; i < snakeBody.length; i++) {
+        context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize)
+    }
+
+    for (let i = 0; i < snakeBody.length; i++) {
+        if (snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1]) {
+            gameover = true;
+            alert("Game Over");
+        }
+
+    }
 }
+
