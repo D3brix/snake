@@ -4,7 +4,8 @@ var blockSize = 25;
 var rows = 12;
 var cols = 12;
 
-var velocity = 0;
+var velocityY= 0;
+var velocityX= 0;
 
 var snakeX = blockSize * 5;
 var snakeY = blockSize * 5;
@@ -50,8 +51,8 @@ function update() {
     }
 
     context.fillStyle = "green";
-    snakeX += velocity * blockSize;
-    snakeY += velocity * blockSize;
+    snakeX += velocityX * blockSize;
+    snakeY += velocityY * blockSize;
     context.fillRect(snakeX, snakeY, blockSize, blockSize);
     for (let i = 0; i < snakeBody.length; i++) {
         context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize)
@@ -66,3 +67,27 @@ function update() {
     }
 }
 
+function changeDirection(e) {
+    if (e.code == "W" && velocityY !=1) {
+        velocityX = 0;
+        velocityY = -1;
+    }
+    else if (e.code == "S" && velocityY != -1) {
+        velocityX = 0;
+        velocityY = 1;
+    }
+    else if (e.code == "A" && velocityX != 1) {
+        velocityX = -1;
+        velocityY = 0;
+    }
+    else if (e.code == "D" && velocityX != -1) {
+        velocityX = 1;
+        velocityY = 0;
+    }
+}
+
+function placeFood() {
+    //(0-1) * cols -> (0-19.9999) -> (0-19) * 25
+    foodX = Math.floor(Math.random() * cols) * blockSize;
+    foodY = Math.floor(Math.random() * rows) * blockSize;
+}
