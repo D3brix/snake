@@ -1,11 +1,11 @@
 var board;
 var context;
 var blockSize = 25;
-var rows = 12;
-var cols = 12;
+var rows = 15;
+var cols = 15;
 
-var velocityY= 0;
-var velocityX= 0;
+var velocityY = 1;
+var velocityX = 1;
 
 var snakeX = blockSize * 5;
 var snakeY = blockSize * 5;
@@ -17,14 +17,14 @@ var foodY = blockSize * 10;
 
 var gameover = false;
 
-
 window.onload = function () {
     board = document.getElementById("board");
     board.height = rows * blockSize;
     board.width = cols * blockSize;
     context = board.getContext("2d");
 
-    setInterval(update, 100);
+    document.addEventListener('keyup', changeDirection)
+    setInterval(update, 200);
 }
 
 function update() {
@@ -68,26 +68,28 @@ function update() {
 }
 
 function changeDirection(e) {
-    if (e.code == "W" && velocityY !=1) {
+    if (e.code == "ArrowUp") {
         velocityX = 0;
         velocityY = -1;
     }
-    else if (e.code == "S" && velocityY != -1) {
+
+    else if (e.code == "ArrowDown") {
         velocityX = 0;
         velocityY = 1;
     }
-    else if (e.code == "A" && velocityX != 1) {
+
+    else if (e.code == "ArrowLeft") {
         velocityX = -1;
         velocityY = 0;
     }
-    else if (e.code == "D" && velocityX != -1) {
+
+    else if (e.code == "ArrowRight") {
         velocityX = 1;
         velocityY = 0;
     }
 }
 
 function placeFood() {
-    //(0-1) * cols -> (0-19.9999) -> (0-19) * 25
-    foodX = Math.floor(Math.random() * cols) * blockSize;
-    foodY = Math.floor(Math.random() * rows) * blockSize;
+    foodX = Math.floor(Math.random(0) * cols) * blockSize;
+    foodY = Math.floor(Math.random(0) * rows) * blockSize;
 }
