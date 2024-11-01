@@ -45,6 +45,7 @@ function update() {
     if (snakeX == foodX && snakeY == foodY) {
         snakeBody.push([foodX, foodY]);
         placeFood();
+        incrementScore();
     }
 
     for (let i = snakeBody.length - 1; i > 0; i--) {
@@ -127,6 +128,10 @@ function changeDirection(e) {
 function placeFood() {
     foodX = Math.floor(Math.random(0) * cols) * blockSize;
     foodY = Math.floor(Math.random(0) * rows) * blockSize;
+    if (foodX == snakeBody)
+        placeFood();
+    if (foodY == snakeBody)
+        placeFood();
 }
 
 
@@ -144,8 +149,6 @@ function updateScore(newScore) {
 }
 
 function incrementScore() {
-    if (snakeBody.length + 1)
         updateScore(score + 1);
-    
 }
 
