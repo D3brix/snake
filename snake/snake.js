@@ -1,11 +1,12 @@
 var board;
+var border;
 var context;
-var blockSize = 25;
+var blockSize = 50;
 var rows = 15;
 var cols = 15;
 
-var velocityY = 1;
-var velocityX = 1;
+var velocityY = 0;
+var velocityX = 0;
 
 var snakeX = blockSize * 5;
 var snakeY = blockSize * 5;
@@ -24,13 +25,16 @@ window.onload = function () {
     context = board.getContext("2d");
 
     document.addEventListener('keyup', changeDirection)
-    setInterval(update, 200);
+    setInterval(update, 180);
 }
 
 function update() {
-    if (gameover) {
-        return;
-    }
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            location.reload();
+        }
+    })
 
     context.fillStyle = "chartreuse";
     context.fillRect(0, 0, board.width, board.height);
@@ -53,6 +57,7 @@ function update() {
     context.fillStyle = "green";
     snakeX += velocityX * blockSize;
     snakeY += velocityY * blockSize;
+    console.log("Snake position:", snakeX, snakeY)
     context.fillRect(snakeX, snakeY, blockSize, blockSize);
     for (let i = 0; i < snakeBody.length; i++) {
         context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize)
@@ -63,9 +68,39 @@ function update() {
             gameover = true;
             alert("Game Over");
         }
-
     }
+
+    if (snakeX > 700)
+        gameover = true;
+   
+
+    else if (snakeX < 0)
+        gameover = true;
+   
+
+    else if (snakeY > 700)
+        gameover = true;
+   
+
+    else if (snakeY < 0)
+        gameover = true;
+    
+    if (gameover) {
+        alert("Game Over");
+    }
+   
+
 }
+
+function collision() {
+    for (let i = 0; i < snakeBody.length; i++) {
+        if (snakeX === snakeBody[i][0] && snakeY === snakeBody[i][1]) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 function changeDirection(e) {
     if (e.code == "ArrowUp") {
@@ -93,3 +128,24 @@ function placeFood() {
     foodX = Math.floor(Math.random(0) * cols) * blockSize;
     foodY = Math.floor(Math.random(0) * rows) * blockSize;
 }
+
+
+const scoreboard = document.createElement('div');
+scoreboard.id = 'scoreboard';
+scoreboard.innerHTML = `<h2>Score: <span id="score">0</span></h2>`;
+document.body.appendChild(scoreboard);
+
+let score = 0; 
+
+
+function updateScore(newScore) {
+    score = newScore;
+    document.getElementById('score').innerText = score;
+}
+
+function incrementScore() {
+    if (snakeBody.length + 1)
+        updateScore(score + 1);
+    
+}
+

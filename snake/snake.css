@@ -1,7 +1,8 @@
 body {
     font-family: 'Courier New', Courier, monospace;
     text-align: center;
-    border-color: black, 1;
-    flex-grow: 1;
 }
 
+h2 {
+    color: yellow;
+}
