@@ -87,12 +87,30 @@ function update() {
         gameover = true;
 
     if (gameover) {
-        alert("Game Over");
+        displayGameOverScreen();
     }
-
-
 }
+function resetScore() {
+    score = 0;
+    updateScore(score);
+}
+function displayGameOverScreen() {
+    context.fillStyle = "black";
+    context.fillRect(0, 0, board.width, board.height);
 
+    context.fillStyle = "white";
+    context.font = "50px Arial";
+    context.textAlign = "center";
+    context.fillText("Game Over", board.width / 2, board.height / 2 - 80);
+    context.font = "30px Arial";
+    context.fillText(`Score: ${score}`, board.width / 2, board.height / 2 - 30);
+    context.fillText("Press Enter to Restart", board.width / 2, board.height / 2 + 30);
+
+    saveScore();
+}
+function saveScore() {
+    console.log("Latest score saved: " + score);
+}
 function collision() {
     for (let i = 0; i < snakeBody.length; i++) {
         if (snakeX === snakeBody[i][0] && snakeY === snakeBody[i][1]) {
@@ -104,22 +122,22 @@ function collision() {
 
 
 function changeDirection(e) {
-    if (e.code == "ArrowUp") {
+    if (e.code == "ArrowUp" || e.code == "KeyW") {
         velocityX = 0;
         velocityY = -1;
     }
 
-    else if (e.code == "ArrowDown") {
+    else if (e.code == "ArrowDown" || e.code == "KeyS") {
         velocityX = 0;
         velocityY = 1;
     }
 
-    else if (e.code == "ArrowLeft") {
+    else if (e.code == "ArrowLeft" || e.code == "KeyA") {
         velocityX = -1;
         velocityY = 0;
     }
 
-    else if (e.code == "ArrowRight") {
+    else if (e.code == "ArrowRight" || e.code == "KeyD") {
         velocityX = 1;
         velocityY = 0;
     }
