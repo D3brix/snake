@@ -67,7 +67,6 @@ function update() {
     for (let i = 0; i < snakeBody.length; i++) {
         if (snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1]) {
             gameover = true;
-            alert("Game Over");
         }
     }
 
@@ -146,9 +145,10 @@ function changeDirection(e) {
 function placeFood() {
     foodX = Math.floor(Math.random(0) * cols) * blockSize;
     foodY = Math.floor(Math.random(0) * rows) * blockSize;
-    if (foodX == snakeBody)
+    if (foodX = snakeBody)
         placeFood();
-    if (foodY == snakeBody)
+
+    if (foodY = snakeBody)
         placeFood();
 }
 
