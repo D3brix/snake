@@ -73,23 +73,23 @@ function update() {
 
     if (snakeX > 700)
         gameover = true;
-   
+
 
     else if (snakeX < 0)
         gameover = true;
-   
+
 
     else if (snakeY > 700)
         gameover = true;
-   
+
 
     else if (snakeY < 0)
         gameover = true;
-    
+
     if (gameover) {
         alert("Game Over");
     }
-   
+
 
 }
 
@@ -140,8 +140,7 @@ scoreboard.id = 'scoreboard';
 scoreboard.innerHTML = `<h2>Score: <span id="score">0</span></h2>`;
 document.body.appendChild(scoreboard);
 
-let score = 0; 
-
+var score = 0;
 
 function updateScore(newScore) {
     score = newScore;
@@ -149,6 +148,6 @@ function updateScore(newScore) {
 }
 
 function incrementScore() {
-        updateScore(score + 1);
+    updateScore(score + 1);
 }
 
