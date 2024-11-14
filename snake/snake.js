@@ -1,3 +1,40 @@
+const userName = prompt('Write your name')
+
+async function getMessages() { const scoreboard2 = document.getElementById('scoreboard2');
+
+const response = await fetch("https://kool.krister.ee/chat/SNAKE1");
+const data = await response.json();
+
+const scores = data.sort(function(a, b){return b.Score-a.Score});
+console.log(scores)
+
+let num_to_skip = [];
+let i = 0;
+for (let a = 0; a < scores.length; a++) {
+  if (i >= 10)
+    {
+      break;
+    }
+    for (let b = 0; b < scores.length; b++)
+      {
+        if ((scores[a].userName == scores[b].userName) && a != b)
+          {
+            num_to_skip[b] = true; 
+          }
+      }
+  if (num_to_skip[a] == undefined  || num_to_skip[a] != true)
+    {
+      scoreboard2.innerHTML += "<h3>" + scores[a].userName + " " + scores[a].Score + "</h3>";
+      i++;
+    }
+  }
+
+
+
+
+}
+
+getMessages()
 var board;
 var border;
 var context;
@@ -18,13 +55,15 @@ var foodY = blockSize * 10;
 
 var gameover = false;
 
+let gameovercontroller = false
+
 window.onload = function () {
     board = document.getElementById("board");
     board.height = rows * blockSize;
     board.width = cols * blockSize;
     context = board.getContext("2d");
 
-    document.addEventListener('keyup', changeDirection)
+    document.addEventListener('keydown', changeDirection)
     setInterval(update, 180);
 }
 
@@ -94,6 +133,7 @@ function resetScore() {
     updateScore(score);
 }
 function displayGameOverScreen() {
+  
     context.fillStyle = "black";
     context.fillRect(0, 0, board.width, board.height);
 
@@ -105,7 +145,20 @@ function displayGameOverScreen() {
     context.fillText(`Score: ${score}`, board.width / 2, board.height / 2 - 30);
     context.fillText("Press Enter to Restart", board.width / 2, board.height / 2 + 30);
 
+    if (gameovercontroller == false)
+        {
+
+    fetch("https://kool.krister.ee/chat/SNAKE1", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ userName:userName , Score:score})
+      });
+
     saveScore();
+    gameovercontroller = true;
+    }
 }
 function saveScore() {
     console.log("Latest score saved: " + score);
@@ -167,4 +220,5 @@ function updateScore(newScore) {
 function incrementScore() {
     updateScore(score + 1);
 }
+
 
