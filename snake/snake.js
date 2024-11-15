@@ -1,4 +1,6 @@
-const userName = prompt('Write your name')
+do {
+    userName = prompt('Write your name');
+} while (userName.length !== 3);
 
 async function getMessages() { const scoreboard2 = document.getElementById('scoreboard2');
 
