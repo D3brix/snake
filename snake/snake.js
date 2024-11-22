@@ -4,7 +4,7 @@ do {
 
 async function getMessages() { const scoreboard2 = document.getElementById('scoreboard2');
 
-const response = await fetch("https://kool.krister.ee/chat/SNAKE1");
+const response = await fetch("https://kool.krister.ee/chat/SNAKE2");
 const data = await response.json();
 
 const scores = data.sort(function(a, b){return b.Score-a.Score});
@@ -13,7 +13,7 @@ console.log(scores)
 let num_to_skip = [];
 let i = 0;
 for (let a = 0; a < scores.length; a++) {
-  if (i >= 10)
+  if (i >= 13)
     {
       break;
     }
@@ -150,7 +150,7 @@ function displayGameOverScreen() {
     if (gameovercontroller == false)
         {
 
-    fetch("https://kool.krister.ee/chat/SNAKE1", {
+    fetch("https://kool.krister.ee/chat/SNAKE2", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
