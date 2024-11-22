@@ -6,3 +6,6 @@ body {
 h2 {
     color: yellow;
 }
+#scoreboard2{font-family: 'Courier New', Courier, monospace;
+    text-align: left;
+    position: absolute;top: 1cm;}
